@@ -1,0 +1,151 @@
+@model adr.Web.Models.ViewModels.CardViewModel
+
+<div class="wrapper">
+    <div class="response container">
+        <div class="content">
+            <div class="icon">
+                @{
+                    if (@Model.status)
+                    {
+                        <img src="@Url.Content("/Content/Theme/Images/success.svg")" alt="">
+                    }
+                }
+            </div>
+            @{
+                if (@Model.status)
+                {
+                    <h1>Approved</h1>
+                    <section>
+                        <p>Your transaction has been successfully processed.</p>
+                    </section>
+                }
+                else
+                {
+                    <section>
+                        <p>Your transaction has failed.</p>
+                        <p>See the Braintree API response and try again."</p>
+                    </section>
+                }
+            }
+        </div>
+    </div>
+</div>
+<aside class="drawer dark">
+    <header>
+        <div class="content compact">
+            <h3>API Response</h3>
+        </div>
+    </header>
+    <article class="content compact">
+        <section>
+            <h5>Transaction</h5>
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td>id</td>
+                        <td>@Model.transaction.Id</td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>@Model.transaction.Type</td>
+                    </tr>
+                    <tr>
+                        <td>amount</td>
+                        <td>@Model.transaction.Amount</td>
+                    </tr>
+                    <tr>
+                        <td>status</td>
+                        <td>@Model.transaction.Status</td>
+                    </tr>
+                    <tr>
+                        <td>created_at</td>
+                        <td>@Model.transaction.CreatedAt</td>
+                    </tr>
+                    <tr>
+                        <td>updated_at</td>
+                        <td>@Model.transaction.UpdatedAt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h5>Payment</h5>
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td>token</td>
+                        <td>@Model.transaction.CreditCard.Token</td>
+                    </tr>
+                    <tr>
+                        <td>bin</td>
+                        <td>@Model.transaction.CreditCard.Bin</td>
+                    </tr>
+                    <tr>
+                        <td>last_4</td>
+                        <td>@Model.transaction.CreditCard.LastFour</td>
+                    </tr>
+                    <tr>
+                        <td>card_type</td>
+                        <td>@Model.transaction.CreditCard.CardType</td>
+                    </tr>
+                    <tr>
+                        <td>expiration_date</td>
+                        <td>@Model.transaction.CreditCard.ExpirationDate</td>
+                    </tr>
+                    <tr>
+                        <td>cardholder_name</td>
+                        <td>@Model.transaction.CreditCard.CardholderName</td>
+                    </tr>
+                    <tr>
+                        <td>customer_location</td>
+                        <td>@Model.transaction.CreditCard.CustomerLocation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        @{
+            if (@Model.transaction.Customer.Id != null)
+            {
+                <section>
+                    <h5>Customer Details</h5>
+                    <table cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>@Model.transaction.Customer.Id</td>
+                            </tr>
+                            <tr>
+                                <td>first_name</td>
+                                <td>@Model.transaction.Customer.FirstName</td>
+                            </tr>
+                            <tr>
+                                <td>last_name</td>
+                                <td>@Model.transaction.Customer.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>email</td>
+                                <td>@Model.transaction.Customer.Email</td>
+                            </tr>
+                            <tr>
+                                <td>company</td>
+                                <td>@Model.transaction.Customer.Company</td>
+                            </tr>
+                            <tr>
+                                <td>website</td>
+                                <td>@Model.transaction.Customer.Website</td>
+                            </tr>
+                            <tr>
+                                <td>phone</td>
+                                <td>@Model.transaction.Customer.Phone</td>
+                            </tr>
+                            <tr>
+                                <td>fax</td>
+                                <td>@Model.transaction.Customer.Fax</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            }
+        }
+    </article>
+</aside>

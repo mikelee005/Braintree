@@ -1,0 +1,43 @@
+@{
+    ViewBag.Title = "Credit Card";
+    ViewBag.Message = "Credit Card Processing page.";
+    Layout = "~/Views/Shared/_QuoteMuleAuthenticatedLayout.cshtml";
+}
+
+@model adr.Web.Models.ViewModels.CardViewModel
+
+<div class="wrapper">
+    <div class="checkout container">
+        <header>
+            <br />
+            <h1>Secure Credit Card Submission</h1>
+            <p>
+                Make a payment with a Credit Card or PayPal
+            </p>
+        </header>
+        <form id="payment-form" method="post" action="/cart/create">
+            <section>
+                <div class="bt-drop-in-wrapper">
+                    <div id="bt-dropin"></div>
+                </div>
+                <label for="amount">
+                    <span class="input-label">Amount</span>
+                </label>
+                <div class="input-wrapper amount-wrapper">
+                    <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+                </div>
+            </section>
+            <button class="button" type="submit"><span>Test Transaction</span></button>
+        </form>
+    </div>
+</div>
+
+@*<script src="~/Scripts/jquery-1.12.0.js"></script>*@
+<script src="https://js.braintreegateway.com/js/braintree-2.27.0.min.js"></script>
+
+<script type="text/javascript">
+    var client_token = "@Model.clientToken";
+    braintree.setup(client_token, "dropin", {
+        container: "bt-dropin"
+    });
+</script>
